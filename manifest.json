@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "name": "Find Demand Extension",
+  "version": "1.0",
+  "description": "Find demand and copy page content",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "clipboardWrite"
+  ],
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
+  "options_page": "options.html",
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  }
+}
