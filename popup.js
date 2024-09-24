@@ -5,14 +5,47 @@ document.addEventListener('DOMContentLoaded', function() {
   var contentArea = document.getElementById('contentArea');
 
   toggleDemandButton.addEventListener('click', function() {
-    isActive = !isActive;
-    if (isActive) {
-      toggleDemandButton.textContent = 'Clear Demand';
-      findDemand();
-    } else {
-      toggleDemandButton.textContent = 'Find Demand';
-      contentArea.value = '';
-    }
+    // Fetch integration settings
+    chrome.storage.sync.get({
+      enableIntegration: false,
+      webhookUrl: '',
+      anthropicApi: '',
+      projectsId: '',
+      demandCriteria: ''
+    }, function(settings) {
+      if (settings.enableIntegration) {
+        // Call the webhook
+        fetch(settings.webhookUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${settings.anthropicApi}`
+          },
+          body: JSON.stringify({
+            projectsId: settings.projectsId,
+            criteria: settings.demandCriteria
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          contentArea.value = JSON.stringify(data, null, 2);
+        })
+        .catch(error => {
+          contentArea.value = 'Error fetching data.';
+          console.error('Error:', error);
+        });
+      } else {
+        // Existing functionality when integration is disabled
+        isActive = !isActive;
+        if (isActive) {
+          toggleDemandButton.textContent = 'Clear Demand';
+          findDemand();
+        } else {
+          toggleDemandButton.textContent = 'Find Demand';
+          contentArea.value = '';
+        }
+      }
+    });
   });
 });
 
