@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Demand View Chrome extension is designed to help users find and copy demand information from a website. It provides a simple interface to search for demand on a page and copy the relevant content to the clipboard.
+The Demand View Chrome extension is designed to help users find and copy demand information from a website so you can feed it to an LLM. It also has integration options to send the info to an end-point you pop-up
 
 ## Features
 
@@ -13,7 +13,7 @@ The Demand View Chrome extension is designed to help users find and copy demand 
 
 1. Clone the repository:
    ```
-   git clone https://github.com/your-username/demand-view.git
+   git clone https://github.com/rkwai/demand-view.git
    ```
 
 2. Open Chrome (or any Chromium-based browser) and navigate to `chrome://extensions/`.
@@ -28,4 +28,5 @@ The Demand View Chrome extension is designed to help users find and copy demand 
 
 ## Usage
 
-1. Click the extension icon in the Chrome toolbar.
+1. Setup your options (use it w/o Integration)
+2. Click the extension icon in the Chrome toolbar to run
