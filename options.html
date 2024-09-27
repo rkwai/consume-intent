@@ -72,6 +72,53 @@
     .checkbox-label input[type="checkbox"] {
       margin-right: 10px;
     }
+    
+    /* Updated and new styles */
+    .criteria-container {
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 15px;
+    }
+    .criteria-list {
+      max-height: 300px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    .criteria-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: #f9f9f9;
+      border-radius: 4px;
+    }
+    .criteria-item button {
+      padding: 5px 10px;
+      font-size: 12px;
+      margin-left: 5px;
+    }
+    .edit-mode {
+      background-color: #e6f3ff;
+    }
+    #add-criteria, #update-criteria {
+      display: block;
+      width: 100%;
+      margin-top: 10px;
+    }
+    #update-criteria {
+      display: none;
+      background-color: #4CAF50;
+    }
+    #cancel-edit {
+      display: none;
+      background-color: #f44336;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
@@ -89,8 +136,31 @@
       <input type="text" id="webhook-url" name="webhook-url">
     </fieldset>
     
-    <label for="demand-criteria">Demand Criteria:</label>
-    <textarea id="demand-criteria" name="demand-criteria"></textarea>
+    <fieldset>
+      <legend>Demand Criteria</legend>
+      
+      <div class="criteria-container">
+        <label for="criteria-name">Criteria Name:</label>
+        <input type="text" id="criteria-name" name="criteria-name">
+        
+        <label for="demand-criteria">Demand Criteria:</label>
+        <textarea id="demand-criteria" name="demand-criteria"></textarea>
+        
+        <button id="add-criteria">Add Criteria</button>
+        <button id="update-criteria">Update Criteria</button>
+        <button id="cancel-edit">Cancel Edit</button>
+      </div>
+      
+      <div class="criteria-list" id="criteria-list">
+        <!-- Existing criteria will be dynamically added here -->
+      </div>
+      
+      <label for="active-criteria">Active Criteria:</label>
+      <select id="active-criteria" name="active-criteria">
+        <option value="">Select active criteria</option>
+        <!-- Options will be dynamically added here -->
+      </select>
+    </fieldset>
     
     <div id="status"></div>
     <button id="save">Save</button>
