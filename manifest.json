@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "Find Demand Extension",
+  "name": "Consume with Intent",
   "version": "1.0",
-  "description": "Find demand and copy page content",
+  "description": "Consume page content with intent",
   "permissions": [
     "activeTab",
     "storage",

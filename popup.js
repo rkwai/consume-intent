@@ -1,13 +1,13 @@
 let isActive = false;
 
 document.addEventListener('DOMContentLoaded', function() {
-  var toggleDemandButton = document.getElementById('toggleDemand');
+  var toggleIntentButton = document.getElementById('toggleIntent');
   var contentArea = document.getElementById('contentArea');
 
-  toggleDemandButton.addEventListener('click', function() {
+  toggleIntentButton.addEventListener('click', function() {
     // Disable the button and add visual indication
-    toggleDemandButton.disabled = true;
-    toggleDemandButton.classList.add('disabled');
+    toggleIntentButton.disabled = true;
+    toggleIntentButton.classList.add('disabled');
 
     // Fetch integration settings and active criteria
     chrome.storage.sync.get({
@@ -30,23 +30,23 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.text())
         .then(data => {
           contentArea.value = data;
-          enableButton(toggleDemandButton);
+          enableButton(toggleIntentButton);
         })
         .catch(error => {
           contentArea.value = 'Error fetching data.';
           console.error('Error:', error);
-          enableButton(toggleDemandButton);
+          enableButton(toggleIntentButton);
         });
       } else {
         // Existing functionality when integration is disabled
         isActive = !isActive;
         if (isActive) {
-          toggleDemandButton.textContent = 'Clear Demand';
-          findDemand(settings.activeCriteria, settings.criteriaList);
+          toggleIntentButton.textContent = 'Clear Intent';
+          findIntent(settings.activeCriteria, settings.criteriaList);
         } else {
-          toggleDemandButton.textContent = 'Find Demand';
+          toggleIntentButton.textContent = 'Find Intent';
           contentArea.value = '';
-          enableButton(toggleDemandButton);
+          enableButton(toggleIntentButton);
         }
       }
     });
@@ -58,12 +58,12 @@ function getActiveCriteria(activeCriteriaName, criteriaList) {
   return activeCriteria ? activeCriteria.criteria : '';
 }
 
-function findDemand(activeCriteriaName, criteriaList) {
+function findIntent(activeCriteriaName, criteriaList) {
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     chrome.tabs.executeScript(tabs[0].id, { file: 'content.js' }, function() {
       if (chrome.runtime.lastError) {
         updateContentArea("Error injecting script: " + chrome.runtime.lastError.message);
-        enableButton(document.getElementById('toggleDemand'));
+        enableButton(document.getElementById('toggleIntent'));
         return;
       }
       
@@ -73,13 +73,13 @@ function findDemand(activeCriteriaName, criteriaList) {
           if (chrome.runtime.lastError) {
             updateContentArea("Error: " + chrome.runtime.lastError.message);
           } else if (response && response.content) {
-            const demandCriteria = getActiveCriteria(activeCriteriaName, criteriaList);
+            const intentCriteria = getActiveCriteria(activeCriteriaName, criteriaList);
             var pageContent = response.content;
             
             var tempPrompt = "<context>" + pageContent + "</context>"
-              + "<demand-criteria>" + demandCriteria + "</demand-criteria>";
+              + "<intent-criteria>" + intentCriteria + "</intent-criteria>";
 
-            updateContentArea("Demand Criteria:\n" + demandCriteria + "\n\nPage Content:\n" + pageContent);
+            updateContentArea("Intent Criteria:\n" + intentCriteria + "\n\nPage Content:\n" + pageContent);
             
             navigator.clipboard.writeText(tempPrompt).then(function() {
               console.log('Content copied to clipboard');
@@ -91,7 +91,7 @@ function findDemand(activeCriteriaName, criteriaList) {
           } else {
             updateContentArea("No content received");
           }
-          enableButton(document.getElementById('toggleDemand'));
+          enableButton(document.getElementById('toggleIntent'));
         });
       }, 100); // 100ms delay
     });

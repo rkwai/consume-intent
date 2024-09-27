@@ -46,11 +46,11 @@ let editingIndex = -1;
 
 function addCriteria() {
   const criteriaName = document.getElementById('criteria-name').value;
-  const demandCriteria = document.getElementById('demand-criteria').value;
+  const intentCriteria = document.getElementById('intent-criteria').value;
   
-  if (criteriaName && demandCriteria) {
+  if (criteriaName && intentCriteria) {
     const criteriaList = JSON.parse(localStorage.getItem('criteriaList') || '[]');
-    criteriaList.push({ name: criteriaName, criteria: demandCriteria });
+    criteriaList.push({ name: criteriaName, criteria: intentCriteria });
     localStorage.setItem('criteriaList', JSON.stringify(criteriaList));
     
     clearInputs();
@@ -90,7 +90,7 @@ function editCriteria(index) {
   const criteria = criteriaList[index];
   
   document.getElementById('criteria-name').value = criteria.name;
-  document.getElementById('demand-criteria').value = criteria.criteria;
+  document.getElementById('intent-criteria').value = criteria.criteria;
   
   document.getElementById('add-criteria').style.display = 'none';
   document.getElementById('update-criteria').style.display = 'block';
@@ -114,10 +114,10 @@ function updateCriteria() {
   
   const criteriaList = JSON.parse(localStorage.getItem('criteriaList') || '[]');
   const criteriaName = document.getElementById('criteria-name').value;
-  const demandCriteria = document.getElementById('demand-criteria').value;
+  const intentCriteria = document.getElementById('intent-criteria').value;
   
-  if (criteriaName && demandCriteria) {
-    criteriaList[editingIndex] = { name: criteriaName, criteria: demandCriteria };
+  if (criteriaName && intentCriteria) {
+    criteriaList[editingIndex] = { name: criteriaName, criteria: intentCriteria };
     localStorage.setItem('criteriaList', JSON.stringify(criteriaList));
     
     clearInputs();
@@ -153,7 +153,7 @@ function cancelEdit() {
 
 function clearInputs() {
   document.getElementById('criteria-name').value = '';
-  document.getElementById('demand-criteria').value = '';
+  document.getElementById('intent-criteria').value = '';
 }
 
 document.addEventListener('DOMContentLoaded', function() {
