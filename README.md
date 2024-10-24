@@ -15,7 +15,7 @@ The Consume with Intent Chrome extension is designed to help users analyze web p
 
 1. Clone the repository:
    ```
-   git clone https://github.com/rkwai/demand-view.git
+   git clone https://github.com/rkwai/consume-intent.git
    ```
 
 2. Open Chrome (or any Chromium-based browser) and navigate to `chrome://extensions/`.
@@ -24,7 +24,7 @@ The Consume with Intent Chrome extension is designed to help users analyze web p
 
 4. Click "Load unpacked."
 
-5. Select the `demand-view` directory.
+5. Select the `consume-intent` directory.
 
 6. The extension should now be installed.
 
